@@ -1,0 +1,17 @@
+{
+  "bad_assign.sipl": {"code": "E-LEX-001", "line": 1, "col": 9},
+  "bad_condition.sipl": {"code": "E-PARSE-001", "line": 1, "col": 15},
+  "dangling_semicolon.sipl": {"code": "E-PARSE-001", "line": 1, "col": 15},
+  "empty_file.sipl": {"code": "E-PARSE-002", "line": 1, "col": 1},
+  "empty_program.sipl": {"code": "E-PARSE-001", "line": 1, "col": 7},
+  "error_on_line_3.sipl": {"code": "E-PARSE-001", "line": 3, "col": 11},
+  "keyword_as_variable.sipl": {"code": "E-PARSE-001", "line": 1, "col": 13},
+  "missing_do.sipl": {"code": "E-PARSE-001", "line": 1, "col": 19},
+  "missing_else.sipl": {"code": "E-PARSE-001", "line": 1, "col": 28},
+  "missing_end.sipl": {"code": "E-PARSE-002", "line": 2, "col": 1},
+  "missing_expr.sipl": {"code": "E-PARSE-001", "line": 1, "col": 12},
+  "number_then_letters.sipl": {"code": "E-LEX-001", "line": 1, "col": 7},
+  "trailing_text.sipl": {"code": "E-PARSE-003", "line": 1, "col": 18},
+  "unbalanced_paren.sipl": {"code": "E-PARSE-001", "line": 1, "col": 19},
+  "unknown_char.sipl": {"code": "E-LEX-001", "line": 1, "col": 14}
+}

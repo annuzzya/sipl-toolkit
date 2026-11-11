@@ -1,0 +1,6 @@
+begin
+  if a > b then
+    if a = c then x := 1 else x := 2
+  else
+    x := 3
+end

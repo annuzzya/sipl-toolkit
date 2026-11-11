@@ -1,0 +1,10 @@
+begin
+  S := 0;
+  T := 0;
+  while N > 0 do
+  begin
+    T := T + 3;
+    S := S + T;
+    N := N - 1
+  end
+end

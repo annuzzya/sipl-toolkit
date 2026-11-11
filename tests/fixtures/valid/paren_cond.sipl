@@ -1,0 +1,4 @@
+begin
+  while (x) + 1 > 0 do skip;
+  while (x > 0) do skip
+end

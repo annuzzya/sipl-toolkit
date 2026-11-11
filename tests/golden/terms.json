@@ -1,0 +1,67 @@
+{
+  "_comment": "Еталонні семантичні терми (unicode-нотація курсу). x^y — приклад підручника, практична робота 2, с. 16; сума прогресії — варіант 18.",
+  "cases": [
+    {
+      "name": "power_x_y (підручник)",
+      "program": "begin R := 1; while Y > 0 do begin R := R * X; Y := Y - 1 end end",
+      "term": "AS^R(1̄) · WH(S²(gr, Y⇒, 0̄), AS^R(S²(mult, R⇒, X⇒)) · AS^Y(S²(sub, Y⇒, 1̄)))",
+      "evals": [
+        {"state": {"X": 5, "Y": 2}, "result": {"X": 5, "Y": 0, "R": 25}},
+        {"state": {"X": 2, "Y": 0}, "result": {"X": 2, "Y": 0, "R": 1}}
+      ]
+    },
+    {
+      "name": "sum_ap (сума 3,6,…,3n)",
+      "program": "begin S := 0; T := 0; while N > 0 do begin T := T + 3; S := S + T; N := N - 1 end end",
+      "term": "AS^S(0̄) · AS^T(0̄) · WH(S²(gr, N⇒, 0̄), AS^T(S²(add, T⇒, 3̄)) · AS^S(S²(add, S⇒, T⇒)) · AS^N(S²(sub, N⇒, 1̄)))",
+      "evals": [
+        {"state": {"N": 3}, "result": {"N": 0, "S": 18, "T": 9}},
+        {"state": {"N": 1}, "result": {"N": 0, "S": 3, "T": 3}},
+        {"state": {"N": 0}, "result": {"N": 0, "S": 0, "T": 0}}
+      ]
+    },
+    {
+      "name": "skip",
+      "program": "begin skip end",
+      "term": "id",
+      "evals": [{"state": {"a": 7}, "result": {"a": 7}}]
+    },
+    {
+      "name": "if_else",
+      "program": "begin if x > 0 then y := 1 else y := 2 end",
+      "term": "IF(S²(gr, x⇒, 0̄), AS^y(1̄), AS^y(2̄))",
+      "evals": [
+        {"state": {"x": 3}, "result": {"x": 3, "y": 1}},
+        {"state": {"x": 0}, "result": {"x": 0, "y": 2}}
+      ]
+    },
+    {
+      "name": "precedence",
+      "program": "begin x := 1 + 2 * 3 - (4 - 1) end",
+      "term": "AS^x(S²(sub, S²(add, 1̄, S²(mult, 2̄, 3̄)), S²(sub, 4̄, 1̄)))",
+      "evals": [{"state": {}, "result": {"x": 4}}]
+    },
+    {
+      "name": "logic",
+      "program": "begin if ¬(x > 0) ∨ x = 5 then y := 1 else y := 0 end",
+      "term": "IF(S²(or, S¹(neg, S²(gr, x⇒, 0̄)), S²(eq, x⇒, 5̄)), AS^y(1̄), AS^y(0̄))",
+      "evals": [
+        {"state": {"x": 5}, "result": {"x": 5, "y": 1}},
+        {"state": {"x": 3}, "result": {"x": 3, "y": 0}},
+        {"state": {"x": 0}, "result": {"x": 0, "y": 1}}
+      ]
+    },
+    {
+      "name": "sequence_flat",
+      "program": "begin a := 1; b := 2; c := a + b end",
+      "term": "AS^a(1̄) · AS^b(2̄) · AS^c(S²(add, a⇒, b⇒))",
+      "evals": [{"state": {}, "result": {"a": 1, "b": 2, "c": 3}}]
+    },
+    {
+      "name": "gcd_subtraction",
+      "program": "begin while ¬(a = b) do if a > b then a := a - b else b := b - a end",
+      "term": "WH(S¹(neg, S²(eq, a⇒, b⇒)), IF(S²(gr, a⇒, b⇒), AS^a(S²(sub, a⇒, b⇒)), AS^b(S²(sub, b⇒, a⇒))))",
+      "evals": [{"state": {"a": 12, "b": 18}, "result": {"a": 6, "b": 6}}]
+    }
+  ]
+}

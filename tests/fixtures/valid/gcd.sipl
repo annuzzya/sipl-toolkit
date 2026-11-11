@@ -1,0 +1,4 @@
+begin
+  while ¬(a = b) do
+    if a > b then a := a - b else b := b - a
+end
