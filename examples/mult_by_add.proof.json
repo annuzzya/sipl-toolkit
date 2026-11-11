@@ -1,0 +1,11 @@
+{
+  "name": "Множення через додавання",
+  "params": ["a", "b"],
+  "pre": "A = a and B = b and b > 0",
+  "post": "P = a*b",
+  "inputs": {"A": "a", "B": "b"},
+  "invariant": "0 <= B and B <= b and A = a and P = a*(b-B)",
+  "variant": "B",
+  "closed_form": {"B": "b-k", "P": "a*k"},
+  "iterations": "b"
+}

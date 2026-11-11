@@ -1,0 +1,9 @@
+// Множення через додавання: P = A * B
+begin
+  P := 0;
+  while B > 0 do
+    begin
+      P := P + A;
+      B := B - 1
+    end
+end

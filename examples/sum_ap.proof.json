@@ -1,0 +1,11 @@
+{
+  "name": "Сума арифметичної прогресії 3, 6, …, 3n",
+  "params": ["n"],
+  "pre": "N = n and n > 0",
+  "post": "2*S = 3*n*(n+1)",
+  "inputs": {"N": "n"},
+  "invariant": "0 <= N and N <= n and T = 3*(n-N) and 2*S = 3*(n-N)*(n-N+1)",
+  "variant": "N",
+  "closed_form": {"N": "n-k", "S": "3*k*(k+1)/2", "T": "3*k"},
+  "iterations": "n"
+}
