@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sipl-toolkit"
+version = "0.1.0"
+description = "SIPL Language Toolkit: парсер, дерево виводу, семантичні терми та асистент доведення для мови SIPL (курс «Теорія програмування»)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Anna Kucherova" }]
+keywords = ["sipl", "semantics", "parser", "formal methods", "education"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Education",
+  "Natural Language :: Ukrainian",
+]
+dependencies = []
+
+[project.scripts]
+sipl = "sipl.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
