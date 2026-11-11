@@ -1,0 +1,25 @@
+(* Граматика SIPL (БНФ з практикуму «Теорія програмування», практична робота 1), у вигляді,
+   який реалізує парсер src/sipl/parser.py. Однозначність досягається пріоритетами та асоціативністю.   *)
+
+Prog   = "begin" , Stm , "end" ;
+
+Stm    = Atom , { ";" , Atom } ;                 (* ';' — ліво-асоціативна (опція --seq-assoc right) *)
+Atom   = Var , ":=" , Aexp
+       | "if" , Bexp , "then" , Atom , "else" , Atom
+       | "while" , Bexp , "do" , Atom
+       | "begin" , Stm , "end"
+       | "skip" ;
+
+Bexp   = BNot , { "∨" , BNot } ;                 (* ∨ або слово or; ліво-асоціативний *)
+BNot   = ( "¬" | "not" ) , BNot | BAtom ;        (* ¬ має вищий пріоритет за ∨ *)
+BAtom  = Aexp , ( "=" | ">" ) , Aexp
+       | "(" , Bexp , ")" ;
+
+Aexp   = Term , { ( "+" | "-" ) , Term } ;       (* ліво-асоціативні *)
+Term   = Factor , { "*" , Factor } ;             (* * пріоритетніший за + та - *)
+Factor = Num | Var | "(" , Aexp , ")" ;
+
+Var    = letter , { letter | digit | "_" } ;     (* не ключове слово *)
+Num    = digit , { digit } ;
+
+(* Коментар: від // до кінця рядка. Ключові слова: begin end if then else while do skip *)
