@@ -98,7 +98,7 @@ def cmd_tree(args) -> int:
         return EXIT_SYNTAX
     root = build_parse_tree(prog)
     ua = args.labels == "ua"
-    fmt = args.format
+    fmt = "json" if args.json and args.format == "text" else args.format
     if fmt == "json":
         out = json.dumps({"command": "tree", "ok": True, **tree_to_dict(root, source, ua)}, ensure_ascii=False, indent=2)
     elif fmt == "dot":

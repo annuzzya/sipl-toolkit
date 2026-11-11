@@ -258,7 +258,7 @@ def _sym_exec(stmts: list, env: dict) -> list:
 
 
 def _fmt_poly_state(env: dict, order: Optional[list] = None) -> str:
-    keys = order or list(env)
+    keys = list(order or []) + [k for k in env if k not in (order or [])]
     return "[" + ", ".join(f"{k} ↦ {env[k]}" for k in keys if k in env) + "]"
 
 
@@ -313,6 +313,7 @@ class _Ctx:
     after: list
     assumptions: list = field(default_factory=list)
     R_note: int = 0
+    const_vars: list = field(default_factory=list)
 
     def __post_init__(self):
         self.pre = parse_formula(self.spec.pre)
@@ -378,6 +379,14 @@ def _induction_mode(ctx: _Ctx) -> list:
     except _Unsupported as e:
         return steps + [ProofStep("A1", "Ініціалізація", "bounded", "unknown", [f"символьно не вдалось: {e}"])]
 
+    # змінні, яких цикл не змінює, лишаються сталими: st_k(v) = st₀(v)
+    written = {n.target.name for n in ctx.loop.walk() if isinstance(n, A.Assign)}
+    fixed = [v for v in st0 if v not in cf and v not in written]
+    for v in fixed:
+        cf[v] = st0[v]
+        order.append(v)
+    ctx.const_vars = fixed
+
     # ---- A2: база індукції
     base_lines, base_ok, cx = [], True, None
     for v in order:
@@ -395,6 +404,8 @@ def _induction_mode(ctx: _Ctx) -> list:
     for v in st0:
         if v not in cf:
             base_lines.append(f"увага: змінна {v} є в st₀, але не описана у closed_form")
+    if fixed:
+        base_lines.append(f"змінні {', '.join(fixed)} цикл не змінює — вважаємо їх сталими: st_k = st₀")
     steps.append(ProofStep("A2", "База індукції (k = 0)", "exact", "ok" if base_ok else "fail", base_lines, cx))
 
     # ---- A3: крок індукції
